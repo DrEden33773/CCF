@@ -12,7 +12,6 @@
 #pragma once
 
 #include <algorithm>
-#include <functional>
 #include <iostream>
 #include <vector>
 
@@ -25,8 +24,11 @@ class ToSaveMailFee {
     int ans        = 0;
 
     /// @brief [ <price, if_deleted> ]
-    vector<pair<int, bool>> BookPriceList;
-    vector<int>             PriceList;
+    vector<int> PriceList;
+    vector<int> Prefix_List;
+
+    /// @brief memorial
+    vector<int> Memorial;
 
 public:
     void input() {
@@ -36,31 +38,31 @@ public:
         NumOfBooks = numOfBooks;
         MinFee     = minFee;
 
-        BookPriceList.reserve(numOfBooks);
-        PriceList.reserve(numOfBooks);
+        PriceList   = vector<int>(numOfBooks);
+        Prefix_List = vector<int>(numOfBooks);
+
         for (int index = 0; index < numOfBooks; ++index) {
             int price = 0;
             cin >> price;
             CurrSumFee += price;
-            auto&& toInsert = make_pair(price, false);
-            BookPriceList.emplace_back(toInsert);
-            PriceList.emplace_back(price);
+            PriceList[index] = price;
+            if (index == 0) {
+                Prefix_List[index] = PriceList[index];
+            } else {
+                Prefix_List[index] = PriceList[index] + Prefix_List[index - 1];
+            }
         }
 
         ans = CurrSumFee;
     }
 
     /// @brief @b enum_dfs
-    void DFS_func(int pos, int curr_price) {
-        if (pos == NumOfBooks) {
-            // has reached the limit
-            if (curr_price >= MinFee) {
-                ans = min(ans, curr_price);
-            }
-            return;
-        }
+    void DFS_func(const int& pos, const int& curr_price) {
         if (curr_price >= MinFee) {
             ans = min(ans, curr_price);
+            return;
+        }
+        if (pos == NumOfBooks) {
             return;
         }
         // unselected PriceList[pos]
@@ -72,8 +74,34 @@ public:
         DFS_func(0, 0);
     }
 
-    /// @brief @b zero_one_DP_pack
+    /// @brief @b dfs_with_cutting_edge
+    void better_dfs(const int& pos, const int& curr_price) {
+        // cutting edge at first
+        int curr_sum_of_rest = 0;
+        if (!pos) {
+            curr_sum_of_rest = Prefix_List.back();
+        } else {
+            curr_sum_of_rest = Prefix_List.back() - Prefix_List[pos - 1];
+        }
+        if (curr_price + curr_sum_of_rest < MinFee) {
+            // curr_price is too low! You could just discard it
+            return;
+        }
+
+        if (curr_price >= MinFee) {
+            ans = min(ans, curr_price);
+            return;
+        }
+        if (pos == NumOfBooks) {
+            return;
+        }
+        // unselected PriceList[pos]
+        better_dfs(pos + 1, curr_price);
+        // selected PriceList[pos]
+        better_dfs(pos + 1, curr_price + PriceList[pos]);
+    }
     void process() {
+        better_dfs(0, 0);
     }
 
     void output() {
@@ -83,7 +111,7 @@ public:
     static void solution() {
         ToSaveMailFee TheSolution;
         TheSolution.input();
-        TheSolution.partial_process();
+        TheSolution.process();
         TheSolution.output();
     }
 };
