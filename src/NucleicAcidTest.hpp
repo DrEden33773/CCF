@@ -37,6 +37,9 @@ class NucleicAcidTest {
     /// @brief <enter_time, effective_period>
     vector<tuple<int, int>> schedule_list;
 
+    /// @brief { effective_period: <enter_time, effective_period> }
+    map<int, vector<int>> period_enter_map;
+
     /// @brief <time_of_check>
     vector<int> query_list;
 
@@ -131,8 +134,13 @@ public:
             int effective_period = 0;
             cin >> enter_time;
             cin >> effective_period;
-            auto curr_tuple = make_tuple(enter_time, effective_period);
-            schedule_list.emplace_back(std::move(curr_tuple));
+
+            // build: schedule_list => O(1)
+            auto&& curr_tuple = make_tuple(enter_time, effective_period);
+            schedule_list.emplace_back(curr_tuple);
+
+            // build: period_enter_map => O(log_2(n))
+            period_enter_map[effective_period].push_back(enter_time);
         }
         // input query_of <time_of_check>
         query_list.reserve(num_of_query);
@@ -168,14 +176,7 @@ public:
         }
     }
     void improved_get_res() {
-        map<int, vector<int>> period_enter_map;
-        // 1. construct the map
-        for (auto&& curr_tuple : schedule_list) {
-            int enter_time, effective_period;
-            tie(enter_time, effective_period) = curr_tuple;
-            period_enter_map[effective_period].push_back(enter_time);
-        }
-        // 2. run check in the map
+        // run check in the map
         for (auto&& time_of_check : query_list) {
             int curr_available_num = 0;
             int range_begin        = time_of_check + waiting_period; // >=
