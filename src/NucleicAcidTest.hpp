@@ -49,7 +49,9 @@ class NucleicAcidTest {
     /// @brief binary-search-based, for `ascending ordered` query_list
     auto find_first_non_smaller_than(const int& range_begin)
         -> decltype(schedule_list.begin()) {
-        int enter_time, effective_period;
+        int enter_time       = 0;
+        int effective_period = 0;
+
         tie(enter_time, effective_period) = schedule_list.back();
         if (enter_time < range_begin) {
             return schedule_list.end();
@@ -61,7 +63,10 @@ class NucleicAcidTest {
 
         while (left <= right) {
             auto&& mid = left + ((right - left) / 2);
-            int    enter_time, effective_period;
+
+            int enter_time       = 0;
+            int effective_period = 0;
+
             tie(enter_time, effective_period) = *mid;
             if (enter_time >= range_begin) {
                 if (first_non_smaller == schedule_list.end()) {
@@ -203,6 +208,14 @@ public:
                 curr_available_num += static_cast<int>(sub_available_num);
             }
             res.emplace_back(curr_available_num);
+        }
+    }
+    void best_get_res() {
+        // locate the `destination` at first!
+        for (auto&& curr_tuple : schedule_list) {
+            int enter_time                    = 0;
+            int effective_period              = 0;
+            tie(enter_time, effective_period) = curr_tuple;
         }
     }
     void output() {
