@@ -15,9 +15,9 @@
 #include "ToSaveMailFee.hpp"
 
 int main(int argc, char** argv) {
-    // NucleicAcidTest::solution();
+    NucleicAcidTest::solution();
     // BallCollision::solution();
     // ToSaveMailFee::solution();
-    GetVegetable::solution();
+    // GetVegetable::solution();
     return 0;
 }

@@ -20,16 +20,24 @@
 //
 // However, could convert the multi-thread to single-thread
 
+// Update => Should use a `Differential Array`
+
 #pragma once
 
 #include <algorithm>
 #include <iostream>
-#include <map>
 #include <tuple>
+#include <unordered_map>
 #include <vector>
 using namespace std;
 
 class NucleicAcidTest {
+    // max_of_enter_time = 2e5
+    // max_of_check_time = 2e5
+    // max_of_waiting_period = 1e5
+    // max_of_waiting_period + max_of_check_time = 3e5
+    const int MAX = 2e5 + 1e5;
+
     int num_of_schedule = 0; // n
     int num_of_query    = 0; // m
     int waiting_period  = 0; // k
@@ -38,13 +46,16 @@ class NucleicAcidTest {
     vector<tuple<int, int>> schedule_list;
 
     /// @brief { effective_period: <enter_time, effective_period> }
-    map<int, vector<int>> period_enter_map;
+    unordered_map<int, vector<int>> period_enter_map;
 
     /// @brief <time_of_check>
     vector<int> query_list;
 
     /// @brief result_vec
     vector<int> res;
+
+    /// @brief Differential Array
+    vector<int> Differential = vector<int>(MAX + 4, 0);
 
     /// @brief binary-search-based, for `ascending ordered` query_list
     auto find_first_non_smaller_than(const int& range_begin)
@@ -127,6 +138,11 @@ class NucleicAcidTest {
     }
 
 public:
+    // element in `origin_arr of diff_arr` in range [left, right] + value
+    void insert_differential(int left, int right, int value) {
+        Differential[left] += value;
+        Differential[right + 1] -= value;
+    }
     void input() {
         // n, m, k
         cin >> num_of_schedule;
@@ -144,8 +160,20 @@ public:
             auto&& curr_tuple = make_tuple(enter_time, effective_period);
             schedule_list.emplace_back(curr_tuple);
 
-            // build: period_enter_map => O(log_2(n))
+            // build: period_enter_map => O(1)
             period_enter_map[effective_period].push_back(enter_time);
+
+            // build: differential
+
+            int  earliest_report_time = 0;
+            int  latest_report_time   = 0;
+            int& left                 = earliest_report_time;
+            int& right                = latest_report_time;
+            // left + effective_period - 1 = enter_time
+            left  = enter_time - effective_period + 1;
+            right = enter_time;
+            left  = (left >= 0) ? left : 0;
+            insert_differential(left, right, 1);
         }
         // input query_of <time_of_check>
         query_list.reserve(num_of_query);
@@ -212,11 +240,12 @@ public:
         }
     }
     void best_get_res() {
-        // locate the `destination` at first!
-        for (auto&& curr_tuple : schedule_list) {
-            int enter_time                    = 0;
-            int effective_period              = 0;
-            tie(enter_time, effective_period) = curr_tuple;
+        res.reserve(query_list.size());
+        for (int i = 1; i <= MAX; i++) {
+            Differential[i] = Differential[i - 1] + Differential[i];
+        }
+        for (auto&& time_of_check : query_list) {
+            res.emplace_back(Differential[time_of_check + waiting_period]);
         }
     }
     void output() {
@@ -227,7 +256,7 @@ public:
     static void solution() {
         NucleicAcidTest TheSolution;
         TheSolution.input();
-        TheSolution.improved_get_res();
+        TheSolution.best_get_res();
         TheSolution.output();
     }
 };
