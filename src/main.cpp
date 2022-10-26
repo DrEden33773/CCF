@@ -10,12 +10,14 @@
  */
 
 #include "BallCollision.hpp"
+#include "GetVegetable.hpp"
 #include "NucleicAcidTest.hpp"
 #include "ToSaveMailFee.hpp"
 
 int main(int argc, char** argv) {
     // NucleicAcidTest::solution();
     // BallCollision::solution();
-    ToSaveMailFee::solution();
+    // ToSaveMailFee::solution();
+    GetVegetable::solution();
     return 0;
 }
