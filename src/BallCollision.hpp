@@ -13,7 +13,6 @@
 
 #include <algorithm>
 #include <iostream>
-#include <map>
 #include <utility>
 #include <vector>
 using namespace std;
@@ -108,15 +107,15 @@ public:
         std::sort(
             ball_info.begin(),
             ball_info.end(),
-            [](pair<int, int>& a, pair<int, int>& b) {
+            [](const pair<int, int>& a, const pair<int, int>& b) {
                 return a.first < b.first;
             }
         );
     }
     void output() {
-        for (auto&& pair : ball_info) {
-            auto&& index    = pair.first;
-            auto&& location = pair.second;
+        for (auto& pair : ball_info) {
+            auto& index    = pair.first;
+            auto& location = pair.second;
             std::cout << location << " ";
         }
     }

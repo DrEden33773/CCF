@@ -81,9 +81,9 @@ public:
             std::sort(
                 curr_list.begin(),
                 curr_list.end(),
-                [](user_msg& a, user_msg& b) {
-                    int a_date, a_user, a_region;
-                    int b_date, b_user, b_region;
+                [](const user_msg& a, const user_msg& b) {
+                    int a_date = 0, a_user = 0, a_region = 0;
+                    int b_date = 0, b_user = 0, b_region = 0;
                     std::tie(a_date, a_user, a_region) = a;
                     std::tie(b_date, b_user, b_region) = b;
                     return a_date < b_date;
@@ -107,7 +107,6 @@ public:
     /// @brief @b output
     void output() {
         for (int date = 0; date < _day; ++date) {
-            cout << date << " ";
             for (auto&& user : res[date]) {
                 cout << user << " ";
             }
