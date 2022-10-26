@@ -9,18 +9,22 @@
  *
  */
 
-// The best solution should be => Multi-Thread
-//
-// Separate into N Threads (N == num of different effective period)
-//
-// In each period (enter time is non-descending ordered)
-// do `binary-search` twice, to get the first and last, and count the `shifting_value`
-//
-// Then, curr_available_num += shifting_value + 1
-//
-// However, could convert the multi-thread to single-thread
-
 // Update => Should use a `Differential Array`
+
+/**
+ * @note
+        You need to take location into first consideration
+        Use `enter_time` and `effective` period to found =>
+        @b the_earliest(with_it) and @b the_latest(with_it) @e acid_check_time
+            @p which @p satisfy_the_requirement
+        Then you could simply @b add_one in the array
+            @p which @p show_how_many_location_this_check_time_satisfy
+            @p in_range_of @b [the_earliest,the_latest]
+        That will be much easier to operate in an @b Diff_Array
+            @b origin||->[the_earliest:the_latest]+=N
+            @b diff||->[the_earliest]+=N,[the_latest+1]-=N
+ *
+ */
 
 #pragma once
 
@@ -32,7 +36,6 @@
 using namespace std;
 
 class NucleicAcidTest {
-    // max_of_enter_time = 2e5
     // max_of_check_time = 2e5
     // max_of_waiting_period = 1e5
     // max_of_waiting_period + max_of_check_time = 3e5
@@ -164,7 +167,6 @@ public:
             period_enter_map[effective_period].push_back(enter_time);
 
             // build: differential
-
             int  earliest_report_time = 0;
             int  latest_report_time   = 0;
             int& left                 = earliest_report_time;
