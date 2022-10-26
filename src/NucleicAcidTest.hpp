@@ -168,7 +168,8 @@ public:
                     iter != schedule_list.end();
                     ++iter
                 ) {
-                    int enter_time, effective_period;
+                    int enter_time       = 0;
+                    int effective_period = 0;
                     tie(enter_time, effective_period)
                         = *iter;
                     int range_end = range_begin + effective_period; // <
