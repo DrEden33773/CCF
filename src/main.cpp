@@ -12,12 +12,14 @@
 #include "BallCollision.hpp"
 #include "GetVegetable.hpp"
 #include "NucleicAcidTest.hpp"
+#include "ScoreThreshold.hpp"
 #include "ToSaveMailFee.hpp"
 
 int main(int argc, char** argv) {
-    NucleicAcidTest::solution();
+    // NucleicAcidTest::solution();
     // BallCollision::solution();
     // ToSaveMailFee::solution();
     // GetVegetable::solution();
+    ScoreThreshold::solution();
     return 0;
 }
