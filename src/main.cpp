@@ -21,5 +21,6 @@ int main(int argc, char** argv) {
     // ToSaveMailFee::solution();
     // GetVegetable::solution();
     ScoreThreshold::solution();
+
     return 0;
 }

@@ -23,12 +23,8 @@ class ToSaveMailFee {
     int CurrSumFee = 0;
     int ans        = 0;
 
-    /// @brief [ <price, if_deleted> ]
     vector<int> PriceList;
     vector<int> Prefix_List;
-
-    /// @brief memorial
-    vector<int> Memorial;
 
 public:
     void input() {
