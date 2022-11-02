@@ -13,6 +13,7 @@
 #include "GetVegetable.hpp"
 #include "NucleicAcidTest.hpp"
 #include "ScoreThreshold.hpp"
+#include "TheCode.hpp"
 #include "ToSaveMailFee.hpp"
 
 int main(int argc, char** argv) {
@@ -20,7 +21,8 @@ int main(int argc, char** argv) {
     // BallCollision::solution();
     // ToSaveMailFee::solution();
     // GetVegetable::solution();
-    ScoreThreshold::solution();
+    // ScoreThreshold::solution();
+    TheCode::solution();
 
     return 0;
 }
