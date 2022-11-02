@@ -75,9 +75,9 @@ public:
         // cutting edge at first
         int curr_sum_of_rest = 0;
         if (!pos) {
-            curr_sum_of_rest = Prefix_List.back();
+            curr_sum_of_rest = Prefix_List[NumOfBooks - 1];
         } else {
-            curr_sum_of_rest = Prefix_List.back() - Prefix_List[pos - 1];
+            curr_sum_of_rest = Prefix_List[NumOfBooks - 1] - Prefix_List[pos - 1];
         }
         if (curr_price + curr_sum_of_rest < MinFee) {
             // curr_price is too low! You could just discard it
