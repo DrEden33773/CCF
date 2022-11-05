@@ -12,6 +12,7 @@
 #include "BallCollision.hpp"
 #include "GetVegetable.hpp"
 #include "NucleicAcidTest.hpp"
+#include "SchoolToHome.hpp"
 #include "ScoreThreshold.hpp"
 #include "TheCode.hpp"
 #include "ToSaveMailFee.hpp"
@@ -22,7 +23,8 @@ int main(int argc, char** argv) {
     // ToSaveMailFee::solution();
     // GetVegetable::solution();
     // ScoreThreshold::solution();
-    TheCode::solution();
+    // TheCode::solution();
+    SchoolToHome::solution();
 
     return 0;
 }
