@@ -25,8 +25,8 @@ int main(int argc, char** argv) {
     // GetVegetable::solution();
     // ScoreThreshold::solution();
     // TheCode::solution();
-    // SchoolToHome::solution();
-    SequenceQuery::solution();
+    SchoolToHome::solution();
+    // SequenceQuery::solution();
 
     return 0;
 }
