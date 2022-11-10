@@ -17,6 +17,7 @@
 #include "SequenceQuery.hpp"
 #include "TheCode.hpp"
 #include "ToSaveMailFee.hpp"
+#include "UninitializedWarning.hpp"
 
 int main(int argc, char** argv) {
     // NucleicAcidTest::solution();
@@ -25,8 +26,9 @@ int main(int argc, char** argv) {
     // GetVegetable::solution();
     // ScoreThreshold::solution();
     // TheCode::solution();
-    SchoolToHome::solution();
+    // SchoolToHome::solution();
     // SequenceQuery::solution();
+    UninitializedWarning::solution();
 
     return 0;
 }
