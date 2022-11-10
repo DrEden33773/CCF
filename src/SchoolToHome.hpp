@@ -10,6 +10,7 @@
  */
 
 #pragma once
+
 #include <iostream>
 #include <list>
 #include <vector>
@@ -44,8 +45,7 @@ struct SchoolToHome {
             }
             time_left = time;
         }
-        void OneSecondLater() {
-            --time_left;
+        void update_status() {
             if (!time_left) {
                 switch (status) {
                 case Status::Red:
@@ -63,13 +63,29 @@ struct SchoolToHome {
                 }
             }
         }
+        void OneSecondLater() {
+            --time_left;
+            update_status();
+        }
         void TimePass(int passed_time) {
             for (int i = 0; i < passed_time; ++i) {
                 OneSecondLater();
             }
         }
+        void BetterTimePass(int passed_time) {
+            while (passed_time) {
+                if (passed_time <= time_left) {
+                    time_left -= passed_time;
+                    passed_time = 0;
+                } else {
+                    passed_time -= time_left;
+                    time_left = 0;
+                }
+                update_status();
+            }
+        }
         void operator-(int passed_time) {
-            TimePass(passed_time);
+            BetterTimePass(passed_time);
         }
         int GetWaitingTime() {
             int res = 0;
