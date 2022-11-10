@@ -14,6 +14,7 @@
 #include "NucleicAcidTest.hpp"
 #include "SchoolToHome.hpp"
 #include "ScoreThreshold.hpp"
+#include "SequenceQuery.hpp"
 #include "TheCode.hpp"
 #include "ToSaveMailFee.hpp"
 
@@ -24,7 +25,8 @@ int main(int argc, char** argv) {
     // GetVegetable::solution();
     // ScoreThreshold::solution();
     // TheCode::solution();
-    SchoolToHome::solution();
+    // SchoolToHome::solution();
+    SequenceQuery::solution();
 
     return 0;
 }
