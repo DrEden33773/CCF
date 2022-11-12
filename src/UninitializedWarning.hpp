@@ -9,6 +9,9 @@
  *
  */
 
+/// @attention @b DO_NOT_USE_VECTOR<BOOL>
+/// @attention @b JUST_USE_VECTOR<INT>
+
 #pragma once
 
 #include <iostream>
@@ -17,10 +20,10 @@
 using namespace std;
 
 class UninitializedWarning {
-    int          n   = 0; // num of var
-    int          k   = 0; // num of assignment
-    int          ans = 0; // answer
-    vector<bool> table;   // initialization_status_table
+    int         n   = 0; // num of var
+    int         k   = 0; // num of assignment
+    int         ans = 0; // answer
+    vector<int> table;   // initialization_status_table
 
 public:
     void update_answer(const int& lhs, const int& rhs) {
@@ -29,13 +32,13 @@ public:
                 ++ans;
             }
         }
-        table[lhs] = true;
+        table[lhs] = 1;
     }
     void input() {
         // input `num_of_var` & `num_of_assignment`
         cin >> n >> k;
         // init table
-        table = vector<bool>(n, false);
+        table = vector<int>(n, 0);
         // input
         for (int i = 0; i < k; ++i) {
             int left  = 0;

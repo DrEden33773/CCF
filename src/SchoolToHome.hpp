@@ -18,9 +18,14 @@
 using namespace std;
 
 struct SchoolToHome {
-    static int r_cnt;
-    static int y_cnt;
-    static int g_cnt;
+    using ll = long long;
+
+    static ll r_cnt;
+    static ll y_cnt;
+    static ll g_cnt;
+
+    ll        answer            = 0;
+    const ll& curr_waiting_time = answer;
 
     struct TrafficLight {
         enum class Status : unsigned short {
@@ -29,9 +34,9 @@ struct SchoolToHome {
             Green  = 3,
         };
         Status status    = Status::Red;
-        int    time_left = 0;
+        ll     time_left = 0;
 
-        TrafficLight(int status_code, int time) {
+        TrafficLight(ll status_code, ll time) {
             switch (status_code) {
             case 1:
                 status = Status::Red;
@@ -63,32 +68,24 @@ struct SchoolToHome {
                 }
             }
         }
-        void OneSecondLater() {
-            --time_left;
-            update_status();
-        }
-        void TimePass(int passed_time) {
-            for (int i = 0; i < passed_time; ++i) {
-                OneSecondLater();
-            }
-        }
-        void BetterTimePass(int passed_time) {
-            while (passed_time) {
-                if (passed_time <= time_left) {
-                    time_left -= passed_time;
-                    passed_time = 0;
+        void TimePass(ll passed_time) {
+            ll modded = passed_time % (r_cnt + y_cnt + g_cnt);
+            while (modded) {
+                if (modded <= time_left) {
+                    time_left -= modded;
+                    modded = 0;
                 } else {
-                    passed_time -= time_left;
+                    modded -= time_left;
                     time_left = 0;
                 }
                 update_status();
             }
         }
-        void operator-(int passed_time) {
-            BetterTimePass(passed_time);
+        void operator-(ll passed_time) {
+            TimePass(passed_time);
         }
-        int GetWaitingTime() {
-            int res = 0;
+        ll GetWaitingTime() {
+            ll res = 0;
             if (status == Status::Red) {
                 res += time_left;
             } else if (status == Status::Yellow) {
@@ -101,54 +98,22 @@ struct SchoolToHome {
         }
     };
 
-    list<TrafficLight> TrafficLights;
-    list<int>          Paths;
-    int                answer = 0;
-
     void input() {
         cin >> r_cnt >> y_cnt >> g_cnt;
 
-        int n = 0;
+        ll n = 0;
         cin >> n;
 
-        for (int i = 0; i < n; ++i) {
-            int k = 0;
-            int t = 0;
+        for (ll i = 0; i < n; ++i) {
+            ll k = 0;
+            ll t = 0;
             cin >> k >> t;
             if (k == 0) {
-                Paths.push_back(t);
+                answer += t;
             } else {
-                TrafficLight a_traffic_light(k, t);
-                TrafficLights.push_back(a_traffic_light);
-                Paths.push_back(-1);
-            }
-        }
-    }
-    void update_all_lights(int passed_time) {
-        for (TrafficLight& curr_light : TrafficLights) {
-            curr_light - passed_time;
-        }
-    }
-    void process() {
-        // no lights
-        if (TrafficLights.empty()) {
-            for (int& pass_time : Paths) {
-                answer += pass_time;
-            }
-            return;
-        }
-        // have lights
-        for (int& time_in_need : Paths) {
-            if (time_in_need == -1) {
-                // meet a traffic light
-                TrafficLight& curr_light   = TrafficLights.front();
-                int           waiting_time = curr_light.GetWaitingTime();
-                update_all_lights(waiting_time);
-                answer += waiting_time;
-                TrafficLights.pop_front();
-            } else {
-                update_all_lights(time_in_need);
-                answer += time_in_need;
+                TrafficLight curr_traffic_light(k, t);
+                curr_traffic_light.TimePass(curr_waiting_time);
+                answer += curr_traffic_light.GetWaitingTime();
             }
         }
     }
@@ -158,11 +123,11 @@ struct SchoolToHome {
     static void solution() {
         SchoolToHome TheSolution;
         TheSolution.input();
-        TheSolution.process();
+        // TheSolution.process();
         TheSolution.output();
     }
 };
 
-int SchoolToHome::r_cnt = 0;
-int SchoolToHome::y_cnt = 0;
-int SchoolToHome::g_cnt = 0;
+SchoolToHome::ll SchoolToHome::r_cnt = 0;
+SchoolToHome::ll SchoolToHome::y_cnt = 0;
+SchoolToHome::ll SchoolToHome::g_cnt = 0;
