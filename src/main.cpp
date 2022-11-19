@@ -15,6 +15,7 @@
 #include "SchoolToHome.hpp"
 #include "ScoreThreshold.hpp"
 #include "SequenceQuery.hpp"
+#include "Tetris.hpp"
 #include "TheCode.hpp"
 #include "ToSaveMailFee.hpp"
 #include "UninitializedWarning.hpp"
@@ -26,9 +27,10 @@ int main(int argc, char** argv) {
     // GetVegetable::solution();
     // ScoreThreshold::solution();
     // TheCode::solution();
-    SchoolToHome::solution();
+    // SchoolToHome::solution();
     // SequenceQuery::solution();
     // UninitializedWarning::solution();
+    Tetris::solution();
 
     return 0;
 }
