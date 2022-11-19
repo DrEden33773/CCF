@@ -47,7 +47,6 @@ class Tetris {
             for (int in_col = 0; in_col < IN_COL; ++in_col) {
                 int row       = in_row + which_row;
                 int col       = in_col + which_col;
-                int next_row  = row + 1;
                 Mat[row][col] = In[in_row][in_col];
             }
         }
