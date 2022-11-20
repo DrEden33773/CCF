@@ -9,6 +9,7 @@
  *
  */
 
+#include "AppleTreeTwo.hpp"
 #include "BallCollision.hpp"
 #include "GetVegetable.hpp"
 #include "NucleicAcidTest.hpp"
@@ -30,7 +31,8 @@ int main(int argc, char** argv) {
     // SchoolToHome::solution();
     // SequenceQuery::solution();
     // UninitializedWarning::solution();
-    Tetris::solution();
+    // Tetris::solution();
+    AppleTreeTwo::solution();
 
     return 0;
 }

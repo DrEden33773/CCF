@@ -13,6 +13,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <stdexcept>
 #include <vector>
 
 using namespace std;
@@ -125,6 +126,9 @@ public:
             }
         }
         cin >> which_col;
+        if (which_col > 7) {
+            throw std::runtime_error("Input shouldn't bigger than 7, exit... ");
+        }
         --which_col;
     }
     void process() {
@@ -153,7 +157,6 @@ public:
         Tetris TheSolution;
         TheSolution.input();
         TheSolution.process();
-        std::cout << std::endl;
         TheSolution.output();
     }
 };
