@@ -19,6 +19,7 @@
 #include "Tetris.hpp"
 #include "TheCode.hpp"
 #include "ToSaveMailFee.hpp"
+#include "TreasureHunter.hpp"
 #include "UninitializedWarning.hpp"
 
 int main(int argc, char** argv) {
@@ -32,7 +33,8 @@ int main(int argc, char** argv) {
     // SequenceQuery::solution();
     // UninitializedWarning::solution();
     // Tetris::solution();
-    AppleTreeTwo::solution();
+    // AppleTreeTwo::solution();
+    TreasureHunter::solution();
 
     return 0;
 }
