@@ -96,20 +96,6 @@ class Tetris {
         return false;
     }
 
-    bool if_output_input(
-        const int& curr_row,
-        const int& curr_col
-    ) {
-        bool if_row_satisfy = (curr_row >= which_row)
-            && (curr_row < (which_row + IN_SIZE));
-        bool if_col_satisfy = (curr_col >= which_col)
-            && (curr_col < (which_col + IN_SIZE));
-        if (if_row_satisfy && if_col_satisfy) {
-            return true;
-        }
-        return false;
-    }
-
 public:
     void input() {
         for (int row = 0; row < ROW; ++row) {
