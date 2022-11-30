@@ -13,6 +13,7 @@
 #include "BallCollision.hpp"
 #include "GetVegetable.hpp"
 #include "NucleicAcidTest.hpp"
+#include "RecycleStation.hpp"
 #include "SchoolToHome.hpp"
 #include "ScoreThreshold.hpp"
 #include "SequenceQuery.hpp"
@@ -34,7 +35,8 @@ int main(int argc, char** argv) {
     // UninitializedWarning::solution();
     // Tetris::solution();
     // AppleTreeTwo::solution();
-    TreasureHunter::solution();
+    // TreasureHunter::solution();
+    RecycleStation::solution();
 
     return 0;
 }
