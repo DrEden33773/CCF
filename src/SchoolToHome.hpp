@@ -111,8 +111,15 @@ struct SchoolToHome {
             if (k == 0) {
                 answer += t;
             } else {
+                // 1. build the model of current traffic light
                 TrafficLight curr_traffic_light(k, t);
+
+                // 2. update the time table of current traffic light
+                // for your previous actions costs time, which should
+                // take into consideration
                 curr_traffic_light.TimePass(curr_waiting_time);
+
+                // 3. calculate time for waiting => only after updating
                 answer += curr_traffic_light.GetWaitingTime();
             }
         }
@@ -123,7 +130,6 @@ struct SchoolToHome {
     static void solution() {
         SchoolToHome TheSolution;
         TheSolution.input();
-        // TheSolution.process();
         TheSolution.output();
     }
 };
